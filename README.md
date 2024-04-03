@@ -1,2 +1,2 @@
 # tally
-high performance event counter 🧮
+high performance event counter 🧮 over UDP 😳
