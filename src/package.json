@@ -1,8 +1,8 @@
 {
-  "name": "tally",
+  "name": "tallywally",
   "version": "0.0.0",
   "description": "high performance event counter",
-  "main": "",
+  "main": "tcp-server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
