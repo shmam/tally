@@ -4,6 +4,7 @@ import (
     "fmt"
     "net"
     "sync"
+    "time"
 )
 
 var (
@@ -15,12 +16,19 @@ var (
 
 func main() {
     var wg sync.WaitGroup
+    startTime := time.Now()
+
     for i := 0; i < numThreads; i++ {
         wg.Add(1)
         go worker(&wg)
     }
+
     wg.Wait()
+    endTime := time.Now()
+	elapsedTime := endTime.Sub(startTime)
+
     fmt.Println("All messages sent!")
+    fmt.Println("Elapsed time:", elapsedTime)
 }
 
 func worker(wg *sync.WaitGroup) {
