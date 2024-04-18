@@ -3,10 +3,20 @@
 const cluster = require('node:cluster');
 const os = require('os');
 const net = require('net');
+const registerCrashHandler = require('./crash-util');
+const Counter = require('./counter-service/counter');
+
+registerCrashHandler();
+
+const counter = new Counter();
 
 const server = net.createServer((socket) => {
     socket.on('data', (data) => {
-        console.log(`server got: ${data} from ${socket.remoteAddress}:${socket.remotePort}`);
+        // console.log(`server got: ${data} from ${socket.remoteAddress}:${socket.remotePort}`);
+
+        // DO WORK
+        counter.count(data)
+
         socket.write("ack")
         socket.end();
     });
@@ -21,6 +31,10 @@ server.on('listening', () => {
     console.log(`server listening ${address.address}:${address.port}`);
 });
 
+server.on('close', () => {
+    console.log('server closed')
+})
+
 if (cluster.isPrimary) {
     for (let i = 0; i < os.cpus().length; i++) {
         cluster.fork();
@@ -32,6 +46,11 @@ if (cluster.isPrimary) {
     });
 } else {
     // workers each listen to port 
-    server.listen(5555);
+    const port = process.env.PORT || 5555;
+    server.listen(port);
+
+    setInterval(() => {
+        console.info(counter.getCount())
+    }, 5000)
 }
 

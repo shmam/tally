@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcp-server
+  labels:
+    app: tally
+spec:
+  selector:
+    matchLabels:
+      app: tally
+  template:
+    metadata:
+      labels:
+        app: tally
+    spec:
+      containers:
+      - name: tcp-server
+        image: tcp
+        ports:
+        - containerPort: 5555

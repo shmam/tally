@@ -1,0 +1,12 @@
+FROM node:20
+
+WORKDIR /usr/src/app
+
+COPY ./src/tcp-server-clustering.js ./
+COPY ./src/package*.json ./
+COPY ./src/*-util.js ./
+COPY ./src/counter-service/ ./counter-service/
+
+ENV PORT=5555
+EXPOSE 5555
+CMD [ "node", "tcp-server-clustering.js" ]
