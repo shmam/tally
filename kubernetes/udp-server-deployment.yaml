@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udp-server
+  labels:
+    app: tally
+spec:
+  selector:
+    matchLabels:
+      app: tally
+  template:
+    metadata:
+      labels:
+        app: tally
+    spec:
+      containers:
+      - name: udp-server
+        image: udp
+        ports:
+        - containerPort: 5557
