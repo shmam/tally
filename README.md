@@ -1,7 +1,7 @@
 # tallywally
 _aiming to be_ a high performance event counter 🧮 in node ⚙️
 
-## performance 
+## connection handling benchmarks 
 ### handling 100 requests from 100 concurrent threads (4 core codespace cpu)
 | Method         | Elapsed Time     |
 | -------------- | ---------------- |
